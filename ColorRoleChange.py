@@ -21,20 +21,19 @@ async def waving_color():
 
     hue = 0.0
     while not client.is_closed():
-        # HSV → RGB (trả về giá trị 0–1 → nhân 255)
         r, g, b = colorsys.hsv_to_rgb(hue, 1, 1)
         rgb_color = discord.Color.from_rgb(int(r * 255), int(g * 255), int(b * 255))
         await role.edit(color=rgb_color)
 
-        hue += 0.01  # Tiến dần hue (vòng tròn màu)
+        hue += 0.01
         if hue > 1.0:
             hue = 0.0
 
-        await asyncio.sleep(1)  # Delay mỗi bước màu (giảm để mượt hơn)
+        await asyncio.sleep(1)
 
 @client.event
 async def on_ready():
-    print(f"✅ Bot đã đăng nhập: {client.user}")
+    print(f" Bot Connect: {client.user}")
     client.loop.create_task(waving_color())
 
 client.run(TOKEN)
